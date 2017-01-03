@@ -17,6 +17,9 @@ linked.so :
 	mkdir -p ./$(dyn_lib)
 	$(cc) -shared -fPIC -o $(dyn_lib)$(linked_list) -L$(dyn_lib) -I$(headers) $(src)linked.c
 
+test:
+	#This is going to run our test suite... somehow
+
 clean :
 	rm $(name)
 	rm $(dyn_lib)*.so
