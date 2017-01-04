@@ -4,7 +4,6 @@ std = c11
 name = wozdit
 buffers = libbuffer.so
 linked_list = liblinked.so
-linked_test = linked_list
 
 linked = linked
 buffer = buffer
@@ -25,9 +24,11 @@ linked.so :
 	mkdir -p ./$(dyn_lib)
 	$(cc) -shared -fPIC -o $(dyn_lib)$(linked_list) -L$(dyn_lib) -I$(headers) $(src)linked.c
 
-test: linked.so
-	$(cc) -o $(linked_test) -std=$(std) -L$(dyn_lib) -I$(headers) -l$(linked)  $(tests)linked_test.c
-	./$(linked_test)
+test: buffer.so
+	$(cc) -o $(linked)_test -std=$(std) -L$(dyn_lib) -I$(headers) -l$(linked)  $(tests)$(linked)_test.c
+	$(cc) -o $(buffer)_test -std=$(std) -L$(dyn_lib) -I$(headers) -l$(buffer) $(tests)$(buffer)_test.c
+	./$(linked)_test
+	./$(buffer)_test
 
 clean :
 	@rm -f $(name)

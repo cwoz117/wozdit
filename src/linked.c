@@ -26,6 +26,15 @@ static NODE * insert_node(NODE *previous, char c, NODE *next){
 	return n;
 }
 
+void add_char(char c, NODE ** index){
+	if (*index == NULL){ // new linked list
+		*index = insert_node(NULL, c, NULL);
+	} else if ((*index)->next == NULL) // last node
+		(*index)->next = insert_node(*index, c, NULL);
+	else // recursive step
+		add_char(c, &((*index)->next));
+}
+
 void print_list(NODE *index){
 	if (index != NULL) {
 		printf("%c", index->character);
@@ -43,12 +52,16 @@ void free_node(NODE ** index){
 		(*index) = NULL;
 	}
 }
+//TODO 	Should be in buffer.c but 
+//		requires the NODE sizes for malloc
+NODE * setup_cursor(NODE **index){
+	NODE * cursor = malloc(sizeof(NODE));
+	if (cursor == NULL)
+		return NULL;
+	cursor = *index;
+	cursor->next = (*index)->next;
+	cursor->previous = NULL;
 
-void add_char(char c, NODE ** index){
-	if (*index == NULL){ // new linked list
-		*index = insert_node(NULL, c, NULL);
-	} else if ((*index)->next == NULL) // last node
-		(*index)->next = insert_node(*index, c, NULL);
-	else // recursive step
-		add_char(c, &((*index)->next));
+	
+
 }

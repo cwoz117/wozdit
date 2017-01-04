@@ -4,5 +4,5 @@
 typedef struct _buffer BUFFER;
 
 BUFFER * build_buffer(FILE *fp);
-void free_buffer(BUFFER *buf);
+void free_buffer(BUFFER **buf);
 #endif

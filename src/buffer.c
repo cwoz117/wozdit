@@ -3,7 +3,7 @@
 */
 #include <stdlib.h>
 #include <stdio.h>
-#include <linked.h>
+#include "linked.h"
 
 struct _cursor{
 	int row;
@@ -12,7 +12,8 @@ struct _cursor{
 
 typedef struct _buffer{
 	struct _cursor cursor;
-	NODE * character;
+	NODE * cursor_pos;
+	NODE * file;
 }BUFFER;
 
 BUFFER * build_buffer(FILE *fp){
@@ -22,18 +23,21 @@ BUFFER * build_buffer(FILE *fp){
 		perror("build_buffer\t could not create a buffer structure");
 		exit(EXIT_FAILURE);
 	}
-	
+	buf->file = NULL;
+	buf->cursor.row = 0;
+	buf->cursor.column = 0;
+
 	char c;	
 	while ((c = fgetc(fp)) != EOF){
-		add_char(c, buf->character);	
+		add_char(c, &(buf->file));	
 	}
-	buf->cursor.row = 0;
-	buf->cursor.column = 0;	
-	
+	buf->cursor_pos = setup_cursor(&(buf->file)); 
+
 	return buf;
 }
 
-void free_buffer(BUFFER *buf){
-	free_node(buf->character);
-	free(buf);
+void free_buffer(BUFFER **buf){
+	free_node(&((*buf)->file));
+	free(*buf);
+	(*buf) = NULL;
 }

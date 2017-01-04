@@ -1,3 +1,0 @@
-This is 
-sample text that we will use
-to test our buffer functions
