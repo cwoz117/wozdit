@@ -33,20 +33,22 @@ void print_list(NODE *index){
 	}
 }
 
-void free_node(NODE *index){
-	if (index->next == NULL)
-		free(index);
-	else {
-		free_node(index->next);
-		free(index);
+void free_node(NODE ** index){
+	if ((*index)->next == NULL) {
+		free((*index));
+		(*index) = NULL;
+	}else {
+		free_node(&((*index)->next));
+		free((*index));
+		(*index) = NULL;
 	}
 }
 
-void add_char(char c, NODE * index){
-	if (index == NULL) // new node
-		index = insert_node(NULL, c, NULL);
-	else if (index->next == NULL) // last node
-		index->next = insert_node(index, c, NULL);
-	else // middle node
-		add_char(c, index->next);	
+void add_char(char c, NODE ** index){
+	if (*index == NULL){ // new linked list
+		*index = insert_node(NULL, c, NULL);
+	} else if ((*index)->next == NULL) // last node
+		(*index)->next = insert_node(*index, c, NULL);
+	else // recursive step
+		add_char(c, &((*index)->next));
 }
