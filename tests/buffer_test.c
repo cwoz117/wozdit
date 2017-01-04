@@ -21,6 +21,9 @@ int main(){
 	printf("Loading in a new buffer\n");
 	BUFFER * buf = setup("./tests/test.txt");
 
+	printf("Testing the cursor\n");
+	print_list(buf);
+	//printf(get_cursor_value(buf));
 
 	printf("Freeing the buffer space\n");
 	free_buffer(&buf);

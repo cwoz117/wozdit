@@ -4,15 +4,10 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include "linked.h"
-
-struct _cursor{
-	int row;
-	int column;
-};
+#include "cursor.h"
 
 typedef struct _buffer{
-	struct _cursor cursor;
-	NODE * cursor_pos;
+	CURSOR * cursor;
 	NODE * file;
 }BUFFER;
 
@@ -24,14 +19,11 @@ BUFFER * build_buffer(FILE *fp){
 		exit(EXIT_FAILURE);
 	}
 	buf->file = NULL;
-	buf->cursor.row = 0;
-	buf->cursor.column = 0;
-
 	char c;	
 	while ((c = fgetc(fp)) != EOF){
 		add_char(c, &(buf->file));	
 	}
-	buf->cursor_pos = setup_cursor(&(buf->file)); 
+	buf->cursor = setup_cursor(&(buf->file)); 
 
 	return buf;
 }

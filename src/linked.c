@@ -8,12 +8,6 @@
 #include <stdio.h>
 #include "linked.h"
 
-typedef struct _node {
-	char character;
-	struct _node * previous;
-	struct _node * next;
-}NODE;
-
 static NODE * insert_node(NODE *previous, char c, NODE *next){
 	NODE *n = malloc(sizeof(NODE));
 	if (n == NULL){
@@ -51,17 +45,4 @@ void free_node(NODE ** index){
 		free((*index));
 		(*index) = NULL;
 	}
-}
-//TODO 	Should be in buffer.c but 
-//		requires the NODE sizes for malloc
-NODE * setup_cursor(NODE **index){
-	NODE * cursor = malloc(sizeof(NODE));
-	if (cursor == NULL)
-		return NULL;
-	cursor = *index;
-	cursor->next = (*index)->next;
-	cursor->previous = NULL;
-
-	
-
 }
