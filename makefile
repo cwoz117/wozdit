@@ -32,5 +32,6 @@ test: buffer.so
 
 clean :
 	@rm -f $(name)
-	@rm -f $(linked_test)
+	@rm -f $(linked)_test
+	@rm -f $(buffer)_test
 	@rm -f $(dyn_lib)*.so
