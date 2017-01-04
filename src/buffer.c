@@ -5,11 +5,7 @@
 #include <stdio.h>
 #include "linked.h"
 #include "cursor.h"
-
-typedef struct _buffer{
-	CURSOR * cursor;
-	NODE * file;
-}BUFFER;
+#include "buffer.h"
 
 BUFFER * build_buffer(FILE *fp){
 	BUFFER *buf = malloc(sizeof(BUFFER));

@@ -23,15 +23,12 @@ cursor.o : linked.o
 linked.o :
 	$(cc) -c -I$(headers) $(src)linked.c
 
-test: buffer.so
-	$(cc) -o $(linked)_test -std=$(std) -L$(dyn_lib) -I$(headers) -l$(linked)  $(tests)$(linked)_test.c
-	$(cc) -o $(buffer)_test -std=$(std) -L$(dyn_lib) -I$(headers) -l$(buffer) $(tests)$(buffer)_test.c
-	./$(linked)_test
-	./$(buffer)_test
+test: buffer
+	$(cc) -o buffer_test -std=$(std) -L$(dyn_lib) -I$(headers) -lbuffer $(tests)buffer_test.c
+	./buffer_test
+	@rm -f buffer_test
 
 clean :
 	@rm -f $(name)
 	@rm -f *.o
-	@rm -f linked_test
-	@rm -f buffer_test
 	@rm -f $(dyn_lib)*.so
